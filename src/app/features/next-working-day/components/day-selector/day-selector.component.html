@@ -1,0 +1,5 @@
+<label for="day">Choose a day:</label>
+
+<select name="days" id="days" [(ngModel)]="selectedDay" (change)="onChange()">
+  <option *ngFor="let day of days;" [value]="day">{{day}}</option>
+</select>

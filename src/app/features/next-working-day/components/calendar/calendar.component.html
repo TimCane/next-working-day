@@ -1,0 +1,12 @@
+<div class="title">
+    <span> {{ getMonthName(monthNumber) }} &nbsp; {{ year }} </span>
+</div>
+<div class="calendar">
+    <span *ngFor='let weekDay of weekDaysName' class="day">
+        {{ weekDay }}
+    </span>
+
+    <span *ngFor='let day of monthDays' class="day" [ngClass]="day.weekDayName" [title]="day.holiday?.name ?? ''" [class.selected]="day.selected" [class.Hol]="day.holiday">
+        {{ day.number }}
+    </span>
+</div>
