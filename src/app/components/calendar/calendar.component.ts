@@ -1,12 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Day } from 'src/app/models/day.interface';
 import { Holiday } from 'src/app/models/holiday.interface';
-import { GetUTCTime } from '../../../../utils/get-utc-time';
+import { GetUTCTime } from 'src/app/utils/get-utc-time';
 
 @Component({
   selector: 'nwd-calendar',
   templateUrl: './calendar.component.html',
-  styleUrls: ['./calendar.component.scss']
+  styleUrls: ['./calendar.component.scss'],
 })
 export class CalendarComponent implements OnInit {
   @Input() date: Date | null;
@@ -24,19 +24,19 @@ export class CalendarComponent implements OnInit {
 
   public weekDaysName: string[] = [];
 
-
   ngOnInit(): void {
-    this.setMonthDays(this.getMonth(this.date!.getMonth(), this.date!.getFullYear()));
+    this.setMonthDays(
+      this.getMonth(this.date!.getMonth(), this.date!.getFullYear())
+    );
 
-    this.weekDaysName.push("Mo");
-    this.weekDaysName.push("Tu");
-    this.weekDaysName.push("We");
-    this.weekDaysName.push("Th");
-    this.weekDaysName.push("Fr");
-    this.weekDaysName.push("Sa");
-    this.weekDaysName.push("Su");
+    this.weekDaysName.push('Mo');
+    this.weekDaysName.push('Tu');
+    this.weekDaysName.push('We');
+    this.weekDaysName.push('Th');
+    this.weekDaysName.push('Fr');
+    this.weekDaysName.push('Sa');
+    this.weekDaysName.push('Su');
   }
-
 
   public getMonth(monthIndex: number, year: number): Day[] {
     let days = [];
@@ -54,66 +54,65 @@ export class CalendarComponent implements OnInit {
     days.push(firstday);
     //
 
-    let countDaysInMonth = new Date(year, monthIndex +1, 0).getDate();
-    for (let i = 2; i < countDaysInMonth +1; i++) {
+    let countDaysInMonth = new Date(year, monthIndex + 1, 0).getDate();
+    for (let i = 2; i < countDaysInMonth + 1; i++) {
       days.push(this.createDay(i, monthIndex, year));
     }
 
     return days;
   }
 
-
   public getMonthName(monthIndex: number): string {
     switch (monthIndex) {
       case 0:
-        return "January";      
+        return 'January';
       case 1:
-        return "February";
+        return 'February';
       case 2:
-        return "March";
+        return 'March';
       case 3:
-        return "April";
+        return 'April';
       case 4:
-        return "May";
+        return 'May';
       case 5:
-        return "June";
+        return 'June';
       case 6:
-        return "July";
+        return 'July';
       case 7:
-        return "August";
+        return 'August';
       case 8:
-        return "September";
+        return 'September';
       case 9:
-        return "October";
+        return 'October';
       case 10:
-        return "November";
+        return 'November';
       case 11:
-        return "December";
+        return 'December';
 
       default:
-        return "|" + monthIndex;
+        return '|' + monthIndex;
     }
   }
 
   public getWeekDayName(weekDay: number): string {
     switch (weekDay) {
       case 1:
-        return "Mo"; // Monday
+        return 'Mo'; // Monday
       case 2:
-        return "Tu"; // Tuesday
+        return 'Tu'; // Tuesday
       case 3:
-        return "We"; // Wednesday
+        return 'We'; // Wednesday
       case 4:
-        return "Th"; // Thursday
+        return 'Th'; // Thursday
       case 5:
-        return "Fr"; // Friday
+        return 'Fr'; // Friday
       case 6:
-        return "Sa"; // Saturday
+        return 'Sa'; // Saturday
       case 7:
-          return "Su"; // Sunday
+        return 'Su'; // Sunday
 
       default:
-        return "";
+        return '';
     }
   }
 
@@ -121,33 +120,35 @@ export class CalendarComponent implements OnInit {
     let date = new Date(year, monthIndex, dayNumber);
     let weekDayNumber = date.getDay();
 
-    if(weekDayNumber == 0){
+    if (weekDayNumber == 0) {
       weekDayNumber = 7;
     }
 
-    var selected = GetUTCTime(date) == GetUTCTime(this.date);
-    var holiday = this.holidays.find((holiday) => GetUTCTime(holiday.date) == GetUTCTime(date)) ?? null;
+    var highlighted = GetUTCTime(date) == GetUTCTime(this.date);
+    var holiday =
+      this.holidays.find(
+        (holiday) => GetUTCTime(holiday.date) == GetUTCTime(date)
+      ) ?? null;
 
     let day: Day = {
-        month: this.getMonthName(monthIndex),
-        monthIndex,
-        number: dayNumber,
-        year,
-        weekDayNumber,
-        weekDayName: this.getWeekDayName(weekDayNumber),
-        selected: selected,
-        holiday: holiday
-      };
+      month: this.getMonthName(monthIndex),
+      monthIndex,
+      number: dayNumber,
+      year,
+      weekDayNumber,
+      weekDayName: this.getWeekDayName(weekDayNumber),
+      highlighted: highlighted,
+      holiday: holiday,
+    };
 
     return day;
   }
 
-//Math.floor( / 1000)
+  //Math.floor( / 1000)
 
   private setMonthDays(days: Day[]): void {
     this.monthDays = days;
     this.monthNumber = this.monthDays[0].monthIndex;
     this.year = this.monthDays[0].year;
   }
-
 }

@@ -1,0 +1,20 @@
+<div class="max-w-cal min-w-cal m-4 text-center font-sans">
+  <div class="text-xl">
+    {{ getMonthName(monthNumber) }} &nbsp; {{ year }}
+  </div>
+  <div class="grid grid-cols-7">
+    <span class="font-bold" *ngFor="let weekDay of weekDaysName">
+      {{ weekDay }}
+    </span>
+
+    <span
+      *ngFor="let day of monthDays"
+      [title]="day.holiday?.name ?? ''"
+      [class.weekend]="day.weekDayNumber == 6 || day.weekDayNumber == 7"
+      [class.highlighted]="day.highlighted"
+      [class.holiday]="day.holiday"
+    >
+      {{ day.number }}
+    </span>
+  </div>
+</div>

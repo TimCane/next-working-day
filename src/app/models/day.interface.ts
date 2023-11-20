@@ -1,15 +1,15 @@
-import { Holiday } from "./holiday.interface";
+import { Holiday } from './holiday.interface';
 
 export interface Day {
-    number: number;
-    year: number;
-  
-    month: string;
-    monthIndex: number;
-  
-    weekDayName: string;
-    weekDayNumber: number;
+  number: number;
+  year: number;
 
-    selected: boolean;
-    holiday: Holiday | null;
-  }
+  month: string;
+  monthIndex: number;
+
+  weekDayName: string;
+  weekDayNumber: number;
+
+  highlighted: boolean;
+  holiday: Holiday | null;
+}

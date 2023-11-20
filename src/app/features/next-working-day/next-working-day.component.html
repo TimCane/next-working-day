@@ -1,22 +1,26 @@
-<div *ngIf="{
+<div
+  *ngIf="{
     dates: selectDates$ | async,
     holidays: selectHolidays$ | async
-  } as state">
-
-    <div *ngIf="state.dates && state.holidays && state.holidays.length > 0">
-        <div>
-            <nwd-day-selector (onSelect)="onDaySelected($event)"></nwd-day-selector>
-        </div>
-        <div>
-            <nwd-year-selector (onSelect)="onYearSelected($event)"></nwd-year-selector>
-        </div>
-
-
-        <div class="calendars">
-            <nwd-calendar *ngFor="let date of state.dates" [date]="date"
-                [holidays]="associatedHolidays(date, state.holidays)"></nwd-calendar>
-        </div>
-
-
+  } as state"
+>
+  <div class="max-w-screen-xl m-auto bg-white p-4 shadow rounded" *ngIf="state.dates && state.holidays && state.holidays.length > 0">
+    <h1 class="text-center text-2xl font-bold text-gray-900 sm:text-3xl">Next Working Day</h1>
+    <div class="border-b-2 p-4 grid grid-cols-2 gap-4">
+      <nwd-day-selector (onSelect)="onDaySelected($event)"></nwd-day-selector>
+      <nwd-year-selector
+        (onSelect)="onYearSelected($event)"
+      ></nwd-year-selector>
     </div>
+
+    <div
+      class="p-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 place-items-center"
+    >
+      <nwd-calendar
+        *ngFor="let date of state.dates"
+        [date]="date"
+        [holidays]="associatedHolidays(date, state.holidays)"
+      ></nwd-calendar>
+    </div>
+  </div>
 </div>

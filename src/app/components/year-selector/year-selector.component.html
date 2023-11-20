@@ -1,0 +1,6 @@
+<div class="dropdown">
+  <label for="year">Year:</label>
+  <select name="years" id="years" [(ngModel)]="selectedYear" (change)="onChange()">
+    <option *ngFor="let year of years;" [value]="year">{{year}}</option>
+  </select>
+</div>
